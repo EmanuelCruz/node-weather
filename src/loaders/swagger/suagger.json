@@ -1,210 +1,210 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "API Rest basic",
-    "description": "This is a simple API base to start projects",
-    "contact": {
-      "email": "you@your-company.com"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:3000/api/v1",
-      "description": "Development"
-    },
-    {
-      "url": "https://rest--server--node--js.herokuapp.com/api/v1",
-      "description": "Production"
-    }
-  ],
-  "tags": [
-    {
-      "name": "users",
-      "description": ""
-    }
-  ],
-  "paths": {
-    "/users": {
-      "get": {
-        "tags": [
-          "users"
-        ],
-        "summary": "Returns a list of all users",
-        "description": "",
-        "operationId": "getAllUsers",
-        "responses": {
-          "200": {
-            "description": "search results matching criteria",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "bad input parameter"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "users"
-        ],
-        "summary": "adds a new user",
-        "description": "Adds a new user",
-        "operationId": "createUser",
-        "requestBody": {
-          "description": "User to add",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserName"
-              }
-            }
-          }
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Rest Wather",
+        "description": "API Rest Wather",
+        "contact": {
+            "email": "you@your-company.com"
         },
-        "responses": {
-          "201": {
-            "description": "user created",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/UserPostOutput"
-                  }
-                }
-              }
-          },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing user already exists"
-          }
-        }
-      }
-    },
-    "/users/{id}": {
-        "put": {
-          "tags": [
-            "users"
-          ],
-          "summary": "Returns the modified user and a message",
-          "description": "Edit user",
-          "operationId": "updateUser",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "the id of the user that needs to be updated",
-              "required" : true,
-              "schema": {
-                "type": "integer"
-              }
-            }
-          ],
-          "requestBody": {
-            "description": "Name User to update",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserName"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "update user by id",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/UserPutOutput"
-                  }
-                }
-              }
-            }
-          }
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
-        "delete": {
-          "tags": [
-            "users"
-          ],
-          "summary": "Returns a message",
-          "description": "Delete user by id",
-          "operationId": "deleteUser",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "the id of the user that needs to be deleted",
-              "required" : true
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api/v1",
+            "description": "Development"
+        },
+        {
+            "url": "https://api-rest-weather-node-js.herokuapp.com/api/v1",
+            "description": "Production"
+        }
+    ],
+    "tags": [
+        {
+            "name": "developers",
+            "description": "Operations available to regular developers"
+        }
+    ],
+    "paths": {
+        "/weather": {
+            "get": {
+                "tags": ["developers"],
+                "summary": "Returns, the weather of the city, according to the longitude and latitude",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lon",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The longitude"
+                    },
+                    {
+                        "in": "query",
+                        "name": "lat",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The latitude"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "search results matching criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/dataWeatherCity"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "delete user"
+        },
+        "/weather/{city}/{idCity}": {
+            "get": {
+                "tags": ["developers"],
+                "summary": "Returns, the weather of the city, according to the city name and idCity",
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "description": "the city I want to find",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idCity",
+                        "in": "path",
+                        "description": "the IdCity I want to find",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "search results matching criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/dataWeatherCity"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            }
+        },
+        "/cities/{city}": {
+            "get": {
+                "tags": ["developers"],
+                "summary": "Returns all the cities that match the search",
+                "description": "",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "description": "the city I want to find",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return de data city",
+                        "content": {
+                          "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/responseGetCities"
+                            }
+                        }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "dataWeatherCity": {
+                "required": [
+                    "description",
+                    "temperature",
+                    "temperatureMin",
+                    "temperatureMax"
+                ],
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "example": "lluvia ligera"
+                    },
+                    "temperature": {
+                        "type": "string",
+                        "example": "18.41"
+                    },
+                    "temperatureMin": {
+                        "type": "string",
+                        "example": "15.49"
+                    },
+                    "temperatureMax": {
+                        "type": "string",
+                        "example": "19.81"
+                    }
+                }
             },
-            "400": {
-              "description": "bad input parameter"
+            "responseGetCities": {
+              "required": ["status", "data"],
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "example": "OK" },
+                    "data": {
+                        "$ref": "#/components/schemas/dataCities"
+                    }
+                }
+            },
+            "dataCities": {
+                "required": ["id", "name", "log","lat" ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "name"
+                    },
+                    "log": {
+                        "type": "string",
+                        "example": "log"
+                    },
+                    "lat": {
+                        "type": "string",
+                        "example": "lat"
+                    }
+                }
             }
-          }
         }
     }
-  },
-  "components": {
-      "schemas": {
-          "User": {
-              "required": ["id"],
-              "type": "object",
-              "properties": {
-                  "id": {
-                      "type": "integer",
-                      "example": "1"
-                  },
-                  "name": {
-                      "type": "string",
-                      "example": "Emanuel"
-                  }
-              }
-          },
-          "UserName": {
-              "required": ["name"],
-              "type": "object",
-              "properties": {
-                  "name": {
-                      "type": "string",
-                      "example": "Emanuel"
-                  }
-              }
-          },
-          "UserPostOutput": {
-              "type": "object",
-              "properties": {
-                  "message": "User created",
-                  "user": {
-                      "$ref": "#/components/schemas/User"
-                  }
-              }
-          },
-          "UserPutOutput": {
-              "type": "object",
-              "properties": {
-                  "message": "User updated",
-                  "user": {
-                    "$ref": "#/components/schemas/userName"
-                  }
-              }
-          }
-      }
-  }
 }
