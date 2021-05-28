@@ -19,4 +19,12 @@ module.exports = {
     swagger: {
         path: "/api-docs",
     },
+    mapbox: {
+        pathBase: "https://api.mapbox.com/geocoding/v5/mapbox.places/",
+        apiKey: process.env.MAPBOX_API_KEY,
+    },
+    openweathermap: {
+        pathBase: "https://api.openweathermap.org/data/2.5/weather",
+        apiKey: process.env.OPENWEATHERMAP_API_KEY,
+    },
 };
